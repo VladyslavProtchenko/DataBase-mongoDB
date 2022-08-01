@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <style>
+        body {
+            font-family: 'Comic Sans MS';
+        }
+        .post__card {
+            width: 80%;
+            height: 130px;
+            padding: 20px 50px 10px;
+
+            display: flex;
+            text-align: left;
+            flex-direction: column;
+            justify-content: space-between;
+            
+            text-transform: none;
+            background: rgb(248, 248, 248);
+            border-radius: 5px;
+            font-size: 14px;
+            color:rgb(68, 68, 68);
+        }
+        .post__author {
+            color:red;
+        }
+        .post__content {
+            padding: 0 20px;
+            text-align: center;
+        }
+        .post__data {
+            text-align: right;
+            color:rgb(172, 172, 172);
+        }
+        .create__post {
+            margin: 50px 0 ;
+            font-size: 16px;
+            text-align: right;
+        }
+        .create__post a {
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(49, 150, 233);
+        }
+        .card_header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .delete {
+            cursor: pointer;
+        }
+    </style>
+    <div class="container" style="width: 1200px; margin: 0 auto; align-items: center; display: flex; flex-direction: column;">
+        <div class="content" style="
+            font-size: 32px;
+            text-align: center;
+            padding: 100px; 
+            margin: 0 auto; 
+            font-family: 'Comic Sans MS'; 
+            text-transform: uppercase;">Post</div>
+
+            <div class="post__card" id="card">
+                <div class="card_header">
+                    <div class="post__author"> <%=post.author %> </div>
+                    <div class="delete" data-id="<%= post.id %>">X</div>
+                </div>
+                
+                <div class="post__content"> <%=post.text %> </div>
+                <div class="post__data" style="display: flex; justify-content: end;"><a href="/edit/<%= post.id %>" class="delete"  style="text-decoration: none; color:grey; margin-right: 30px;">edit</a> <%=post.createdAt.toLocaleDateString() || 'infinity'%></div>
+            </div>
+            <div class="content" style="font-size: 14px; text-align: center;padding-top: 100px;  font-family: 'Comic Sans MS'; text-transform: uppercase;"><a href="http://localhost:3000/posts" style="text-decoration: none; color: grey;">Back to posts</a></div>
+            <div class="content" style="font-size: 14px; text-align: center;padding-top: 20px;  font-family: 'Comic Sans MS'; text-transform: uppercase;"><a href="http://localhost:3000" style="text-decoration: none; color: grey;">Back</a></div>
+            
+    </div>
+    <script>
+        document.addEventListener('click', (e) => {
+            const id = e.target?.dataset?.id || null;
+            if(id) {
+                fetch(`/posts/${id}`, {
+                    method: 'DELETE',
+                }).then(() => {
+                    window.location.href = '/posts';
+                });
+            }
+         })
+    </script>
+</body>
+</html>

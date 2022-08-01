@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <style>
+        .post__card {
+            width: 300px;
+            height: 130px;
+            margin: 5px;
+            padding: 20px 20px 10px;
+
+            display: flex;
+            text-align: left;
+            flex-direction: column;
+            justify-content: space-between;
+            
+            text-transform: none;
+            border-radius: 5px;
+            font-size: 14px;
+            color:rgb(68, 68, 68);
+            box-shadow: 0px 0px 5px 1px  rgb(235, 240, 250);
+            background-color: #fff;
+        }
+        .post__card a {
+            text-decoration: none;
+            color:rgb(83, 83, 83);
+            
+        }
+        .post__author  {
+            color:red;
+        }
+        .post__content  {
+            padding: 0 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .post__data   {
+            text-align: right;
+            color:rgb(172, 172, 172);
+            
+        }
+        .create__post  {
+            margin: 50px 0 ;
+            font-size: 16px;
+            text-align: right;
+        }
+        .create__post a {
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(49, 150, 233);
+        }
+        .posts {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .card_header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .delete {
+            cursor: pointer;
+        }
+        
+    </style>
+    <div class="container" style="width: 1200px; margin: 0 auto;">
+
+        <div class="content" style="font-size: 32px; text-align: center;padding: 50px; margin: 0 auto; font-family: 'Comic Sans MS'; text-transform: uppercase;">
+            <header style="padding: 30px 50px">Posts</header>
+
+            <div class="posts" id="posts">
+                
+                <% if (posts.length) {%>
+                    <% posts.forEach(({id, title, createdAt, text, author }) => { %>
+                        <div class="post__card">
+                        <div class="card_header">
+                            <div class="post__author"><%=author %></div>
+                            <div class="delete" data-id="<%= id %>">X</div>
+                        </div>
+                            
+                            <a href="http://localhost:3000/post/<%= id %>"><div class="post__content"><%=text %></div></a>
+                            <div class="post__data"><%=createdAt.toLocaleDateString() %></div>
+                        </div>
+                    <% }) %>
+                <% } %>
+    
+            </div>
+
+            <div class="create__post"><a href="http://localhost:3000/add-post">make new post</a></div>
+        </div>
+        <div class="content" style="font-size: 14px; text-align: center;padding: 100px; margin: 0 auto; font-family: 'Comic Sans MS'; text-transform: uppercase;"><a href="http://localhost:3000" style="text-decoration: none; color: grey;">Back</a></div>
+    </div>
+    
+    <script>
+        document.addEventListener('click', (e) => {
+            const id = e.target?.dataset?.id || null;
+            if(id) {
+                fetch(`/posts/${id}`, {
+                    method: 'DELETE',
+                }).then(() => {
+                    window.location.reload();
+                });
+            }
+         })
+    </script>
+</body>
+</html>

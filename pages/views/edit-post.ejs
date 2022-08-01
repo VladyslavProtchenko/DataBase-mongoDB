@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <style>
+        form {
+            text-align: left;
+        }
+        textarea {
+            font-family: 'Comic Sans MS';
+            color:rgb(100, 100, 100);
+            width: 80%;
+            height: 200px;
+            border-radius: 5px;
+            padding: 20px 30px;
+            margin-bottom: 50px;
+        }
+        input {
+            align-self: start;
+            font-family: 'Comic Sans MS';
+            color:rgb(100, 100, 100);
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 20px;
+        }
+        input.button {
+            font-size: 16px;
+            font-family: 'Comic Sans MS';
+            color:rgb(63, 146, 253);
+            padding: 10px 15px;
+            background-color: #fff;
+            text-transform: uppercase;
+            border: none;
+        }
+    </style>
+    <div class="container" style="width: 1200px; margin: 0 auto;">
+
+        <div class="content" style="font-size: 32px; text-align: center; padding: 50px;padding-bottom: 0; margin: 0 auto; font-family: 'Comic Sans MS'; text-transform: uppercase;">
+            <header style="padding: 30px 50px">What you want change?</header>
+
+            <form id="post-form" method="post" action="<%=post.id %>?_method=PUT" >
+
+                <input type="text" name="author" placeholder="<%=post.author %>">
+                <textarea name="text" id="1" placeholder="<%=post.text %>"></textarea><br>
+                <input class="button" type="submit">
+                <div class="content" style="display:inline-block;font-size: 14px; text-align: center; margin: 0 auto; font-family: 'Comic Sans MS'; text-transform: uppercase;"><a href="http://localhost:3000" style="text-decoration: none; color: grey;">Back</a></div>
+            
+            </form>
+            <%- include('./partials/nav.ejs') %>
+        </div>
+    </div>
+</body>
+</html>
